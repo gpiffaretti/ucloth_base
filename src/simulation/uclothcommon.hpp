@@ -6,6 +6,7 @@
 #include <utility>
 #include <umath/umath.hpp>
 #include <cstdint>
+#include <variant>
 
 namespace ucloth
 {
@@ -31,6 +32,14 @@ namespace ucloth
             umath::Real kVelocity;
             umath::Real kClothThickness;
             MeshType type;
+        };
+
+        struct Attachment
+        {
+            Particle p;
+            umath::Real originalInverseMass;
+            std::variant<Particle, umath::Position> destination;
+
         };
 
     } // namespace simulation

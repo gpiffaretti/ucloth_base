@@ -16,6 +16,9 @@ namespace ucloth
             std::vector<umath::Vec3> velocities;
             std::vector<umath::Real> inverseMasses;
 
+            // Relations between particles
+            std::vector<Attachment> attachments;
+
             // Meshes
             std::vector<Mesh> meshes;
 
@@ -24,6 +27,8 @@ namespace ucloth
                             umath::Real mass);
                             //umath::Real elasticity,
                             //umath::Real bnedingStiffness);
+
+            void attachParticle(Mesh const& mesh, Particle particle, umath::Position const& position);
 
         private:
             void reserveForNParticles(size_t const nParticles);

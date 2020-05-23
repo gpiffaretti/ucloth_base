@@ -33,6 +33,12 @@ namespace ucloth
             // TODO: add constraints
         }
 
+        void World::attachParticle(Mesh const& mesh, Particle particle, umath::Position const& position)
+        {
+            Particle pInWorld = mesh.begin + particle;
+            attachments.push_back(std::move(Attachment{pInWorld, inverseMasses[pInWorld], position}));
+        }
+
         void World::reserveForNParticles(size_t const nParticles)
         {
             positions.reserve(nParticles);
