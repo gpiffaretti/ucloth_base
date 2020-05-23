@@ -1,9 +1,10 @@
 #ifndef UCLOTH_WORLD_H_
 #define UCLOTH_WORLD_H_
 
-#include <umath/umath.hpp>
-#include <simulation/uclothcommon.hpp>
+#include <umath.hpp>
 #include <vector>
+
+#include "uclothcommon.hpp"
 
 namespace ucloth
 {
@@ -21,6 +22,9 @@ namespace ucloth
 
             // Meshes
             std::vector<Mesh> meshes;
+
+            // External forces
+            std::vector<umath::Vec3> accelerations;
 
             void addCloth(std::vector<umath::Position> const& pos, 
                             Mesh const& mesh,

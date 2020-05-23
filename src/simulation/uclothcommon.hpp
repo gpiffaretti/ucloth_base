@@ -4,7 +4,7 @@
 #include <array>
 #include <vector>
 #include <utility>
-#include <umath/umath.hpp>
+#include <umath.hpp>
 #include <cstdint>
 #include <variant>
 
