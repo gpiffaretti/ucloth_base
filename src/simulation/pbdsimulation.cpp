@@ -1,5 +1,6 @@
 #include "pbdsimulation.hpp"
 #include <numeric>
+#include <variant>
 
 namespace ucloth
 {
@@ -10,9 +11,19 @@ namespace ucloth
             applyExternalAccelerations(world.accelerations, deltaTime, world.velocities);
             dampVelocities(world.meshes, world.positions, world.inverseMasses, world.velocities);
             createPositionEstimates(world.positions, world.velocities, deltaTime);
+            solveAttachments(world.attachments);
+            ignoreAttachmentMasses(world.attachments, world.inverseMasses);
+
+            for(size_t iteration = 0; iteration < solverIterations; ++iteration)
+            {
+                // Fill
+                //solveAttachments(world.attachments);
+            }
+
+            restoreAttachmentMasses(world.attachments, world.inverseMasses);
         }
 
-        void PBDSimulation::applyExternalAccelerations(std::vector<umath::Vec3> const& externalAccelerations, umath::Real const deltaTime, std::vector<umath::Vec3>& velocities)
+        void PBDSimulation::applyExternalAccelerations(std::vector<umath::Vec3> const& externalAccelerations, umath::Real const deltaTime, std::vector<umath::Vec3>& velocities) const
         {
             for(auto const& acceleration : externalAccelerations)
             {
@@ -85,5 +96,38 @@ namespace ucloth
             }
         }
 
+
+        void PBDSimulation::solveAttachments(std::vector<Attachment> const& attachments)
+        {
+            for(auto const& attachment : attachments)
+            {
+                if(std::holds_alternative<Particle>(attachment.destination))
+                {
+                    auto const& destination = std::get<Particle>(attachment.destination);
+                    m_PositionEstimates[attachment.p] = m_PositionEstimates[destination];
+                }
+                else
+                {
+                    auto const& destination = std::get<umath::Position>(attachment.destination);
+                    m_PositionEstimates[attachment.p] = destination;
+                }
+            }
+        }
+
+        void PBDSimulation::ignoreAttachmentMasses(std::vector<Attachment> const& attachments, std::vector<umath::Real> inverseMasses) const
+        {
+            for(auto const& attachment : attachments)
+            {
+                inverseMasses[attachment.p] = 0;
+            }
+        }
+
+        void PBDSimulation::restoreAttachmentMasses(std::vector<Attachment> const& attachments, std::vector<umath::Real> inverseMasses) const
+        {
+            for(auto const& attachment : attachments)
+            {
+                inverseMasses[attachment.p] = attachment.originalInverseMass;
+            }   
+        }
     }
 }
