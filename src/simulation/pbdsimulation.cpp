@@ -7,7 +7,9 @@ namespace ucloth
     {
         void PBDSimulation::simulate(umath::Real const deltaTime, size_t const solverIterations, World& world)
         {
-
+            applyExternalAccelerations(world.accelerations, deltaTime, world.velocities);
+            dampVelocities(world.meshes, world.positions, world.inverseMasses, world.velocities);
+            createPositionEstimates(world.positions, world.velocities, deltaTime);
         }
 
         void PBDSimulation::applyExternalAccelerations(std::vector<umath::Vec3> const& externalAccelerations, umath::Real const deltaTime, std::vector<umath::Vec3>& velocities)
@@ -21,7 +23,7 @@ namespace ucloth
             }
         }
 
-        void PBDSimulation::dampVelocities(std::vector<Mesh> const& meshes, std::vector<umath::Position> const& positions, std::vector<umath::Real> const& inverseMasses, std::vector<umath::Vec3> & velocities)
+        void PBDSimulation::dampVelocities(std::vector<Mesh> const& meshes, std::vector<umath::Position> const& positions, std::vector<umath::Real> const& inverseMasses, std::vector<umath::Vec3> & velocities) const
         {
             for(auto const& mesh : meshes)
             {
@@ -71,5 +73,17 @@ namespace ucloth
 
             }
         }
+
+        void PBDSimulation::createPositionEstimates(std::vector<umath::Position> const& positions, std::vector<umath::Vec3> const& velocities, umath::Real const deltaTime)
+        {
+            size_t const nParticles = positions.size();
+            m_PositionEstimates.resize(nParticles);
+
+            for(Particle p = 0; p < nParticles; ++p)
+            {
+                m_PositionEstimates[p] = positions[p] + velocities[p] * deltaTime;
+            }
+        }
+
     }
 }
