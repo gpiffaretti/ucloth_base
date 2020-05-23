@@ -22,6 +22,7 @@ namespace ucloth
             void solveAttachments(std::vector<Attachment> const& attachments);
             void ignoreAttachmentMasses(std::vector<Attachment> const& attachments, std::vector<umath::Real> inverseMasses) const;
             void restoreAttachmentMasses(std::vector<Attachment> const& attachments, std::vector<umath::Real> inverseMasses) const;
+            void returnResultsToWorld(std::vector<umath::Position> & positions, umath::Real const deltaTime, std::vector<umath::Vec3>& velocities) const;
 
         private:
             std::vector<umath::Position> m_PositionEstimates;
