@@ -9,6 +9,8 @@ namespace ucloth
     {
         void PBDSimulation::simulate(umath::Real const deltaTime, size_t const solverIterations, World& world)
         {
+            ::fprintf(stderr, "howdy log  \n"); // don't forget the newline
+
             applyExternalAccelerations(world.accelerations, deltaTime, world.velocities);
             dampVelocities(world.meshes, world.positions, world.inverseMasses, world.velocities);
             createPositionEstimates(world.positions, world.velocities, deltaTime);
@@ -18,6 +20,7 @@ namespace ucloth
             for(size_t iteration = 0; iteration < solverIterations; ++iteration)
             {
                 // Fill
+                projectDistanceConstraints(world.distanceConstraints, world.inverseMasses, solverIterations);
                 solveAttachments(world.attachments);
             }
             restoreAttachmentMasses(world.attachments, world.inverseMasses);
@@ -140,6 +143,27 @@ namespace ucloth
                 velocities[p] = (m_PositionEstimates[p] - positions[p]) / deltaTime;
             }
             std::copy(m_PositionEstimates.begin(), m_PositionEstimates.end(), positions.begin());
+        }
+
+        void PBDSimulation::projectDistanceConstraints(std::vector<DistanceConstraint> const constraints, std::vector<umath::Real> const& inverseMasses, size_t const solverIterations)
+        {
+            for(auto const& constraint : constraints)
+            {
+                umath::Position& p1 = m_PositionEstimates[constraint.p1];
+                umath::Position& p2 = m_PositionEstimates[constraint.p2];
+
+                umath::Real const w1 = inverseMasses[constraint.p1];
+                umath::Real const w2 = inverseMasses[constraint.p2];
+
+                umath::Real const C = umath::length(p1 - p2) - constraint.distance;
+                umath::Vec3 const n = umath::normalize(p1 - p2);
+                umath::Vec3 const deltaP1 = (-n) * w1 * C / (w1 + w2);
+                umath::Vec3 const deltaP2 = (n) * w1 * C / (w1 + w2);
+
+                umath::Real kPrime = 1 - powf(1 - constraint.stiffness, 1.0f / static_cast<umath::Real>(solverIterations));
+                p1 += kPrime * deltaP1;
+                p2 += kPrime * deltaP2;
+            }
         }
     }
 }

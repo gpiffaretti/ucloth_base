@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "uclothcommon.hpp"
+#include "constraint.hpp"
 
 namespace ucloth
 {
@@ -19,6 +20,8 @@ namespace ucloth
 
             // Relations between particles
             std::vector<Attachment> attachments;
+            
+            std::vector<DistanceConstraint> distanceConstraints;
 
             // Meshes
             std::vector<Mesh> meshes;
@@ -26,11 +29,11 @@ namespace ucloth
             // External forces
             std::vector<umath::Vec3> accelerations;
 
-            void addCloth(std::vector<umath::Position> const& pos, 
+            Mesh const& addCloth(std::vector<umath::Position> const& pos, 
                             Mesh const& mesh,
-                            umath::Real mass);
-                            //umath::Real elasticity,
-                            //umath::Real bnedingStiffness);
+                            umath::Real mass,
+                            umath::Real elasticity,
+                            umath::Real stiffness);
 
             void attachParticle(Mesh const& mesh, Particle particle, umath::Position const& position);
 

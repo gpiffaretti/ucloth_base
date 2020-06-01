@@ -5,6 +5,7 @@
 #include <umath.hpp>
 #include <vector>
 #include "world.hpp"
+#include "constraint.hpp"
 
 namespace ucloth
 {
@@ -23,6 +24,8 @@ namespace ucloth
             void ignoreAttachmentMasses(std::vector<Attachment> const& attachments, std::vector<umath::Real> inverseMasses) const;
             void restoreAttachmentMasses(std::vector<Attachment> const& attachments, std::vector<umath::Real> inverseMasses) const;
             void returnResultsToWorld(std::vector<umath::Position> & positions, umath::Real const deltaTime, std::vector<umath::Vec3>& velocities) const;
+
+            void projectDistanceConstraints(std::vector<DistanceConstraint> const constraints, std::vector<umath::Real> const& inverseMasses, size_t const solverIterations);
 
         private:
             std::vector<umath::Position> m_PositionEstimates;
