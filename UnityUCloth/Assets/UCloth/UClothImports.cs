@@ -8,6 +8,13 @@ namespace UCloth
     {
         public const string UClothLibName = "ucloth_c_api";
 
+
+        //Create string param callback delegate
+        public delegate void DebugCallback(IntPtr request, int size);
+
+        [DllImport(UClothLibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void ucloth_registerDebugCallback(DebugCallback cb);
+
         [DllImport(UClothLibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr ucloth_createWorld();
 

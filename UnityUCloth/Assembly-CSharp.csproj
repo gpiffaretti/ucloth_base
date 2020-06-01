@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{92334089-746A-62AE-9CD5-56518E71D3D8}</ProjectGuid>
+    <ProjectGuid>{F28DE049-CE69-3977-1394-914A101BDB8C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -63,36 +63,37 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\DebugCPP.cs" />
     <Compile Include="Assets\UCloth\UClothCloth.cs" />
     <Compile Include="Assets\UCloth\UClothImports.cs" />
     <Compile Include="Assets\UCloth\UClothSimulation.cs" />
     <Compile Include="Assets\UCloth\UClothWorld.cs" />
     <Reference Include="Unity.Timeline.Editor">
-      <HintPath>C:/Users/gnp89/Projects/Utad/SimulacionAnimacionAvanzada/Telas/TestTelasCpp/TelasCpp/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+      <HintPath>C:/Users/gnp89/Projects/Utad/SimulacionAnimacionAvanzada/Telas/UCloth/UnityUCloth/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VSCode.Editor">
-      <HintPath>C:/Users/gnp89/Projects/Utad/SimulacionAnimacionAvanzada/Telas/TestTelasCpp/TelasCpp/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+      <HintPath>C:/Users/gnp89/Projects/Utad/SimulacionAnimacionAvanzada/Telas/UCloth/UnityUCloth/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>C:/Users/gnp89/Projects/Utad/SimulacionAnimacionAvanzada/Telas/TestTelasCpp/TelasCpp/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>C:/Users/gnp89/Projects/Utad/SimulacionAnimacionAvanzada/Telas/UCloth/UnityUCloth/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>C:/Users/gnp89/Projects/Utad/SimulacionAnimacionAvanzada/Telas/TestTelasCpp/TelasCpp/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+      <HintPath>C:/Users/gnp89/Projects/Utad/SimulacionAnimacionAvanzada/Telas/UCloth/UnityUCloth/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline">
-      <HintPath>C:/Users/gnp89/Projects/Utad/SimulacionAnimacionAvanzada/Telas/TestTelasCpp/TelasCpp/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+      <HintPath>C:/Users/gnp89/Projects/Utad/SimulacionAnimacionAvanzada/Telas/UCloth/UnityUCloth/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>C:/Users/gnp89/Projects/Utad/SimulacionAnimacionAvanzada/Telas/TestTelasCpp/TelasCpp/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+      <HintPath>C:/Users/gnp89/Projects/Utad/SimulacionAnimacionAvanzada/Telas/UCloth/UnityUCloth/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Rider.Editor">
-      <HintPath>C:/Users/gnp89/Projects/Utad/SimulacionAnimacionAvanzada/Telas/TestTelasCpp/TelasCpp/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+      <HintPath>C:/Users/gnp89/Projects/Utad/SimulacionAnimacionAvanzada/Telas/UCloth/UnityUCloth/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>C:/Users/gnp89/Projects/Utad/SimulacionAnimacionAvanzada/Telas/TestTelasCpp/TelasCpp/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>C:/Users/gnp89/Projects/Utad/SimulacionAnimacionAvanzada/Telas/UCloth/UnityUCloth/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
-      <HintPath>C:/Users/gnp89/Projects/Utad/SimulacionAnimacionAvanzada/Telas/TestTelasCpp/TelasCpp/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+      <HintPath>C:/Users/gnp89/Projects/Utad/SimulacionAnimacionAvanzada/Telas/UCloth/UnityUCloth/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.3.9f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>

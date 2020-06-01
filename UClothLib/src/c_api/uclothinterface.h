@@ -4,9 +4,13 @@
 #include "uclothexport.h"
 #include "uclothhandles.h"
 #include "uclothstructures.h"
+#include "uclothdebug.h"
 
 extern "C"
 {
+
+    UCLOTH_EXPORT void ucloth_registerDebugCallback(FuncCallBack cb);
+
     UCLOTH_EXPORT WorldHandle ucloth_createWorld(void);
     UCLOTH_EXPORT void ucloth_deleteWorld(WorldHandle world);
     UCLOTH_EXPORT void ucloth_addAcceleration(WorldHandle world, UClothVector3f acceleration);

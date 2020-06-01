@@ -1,9 +1,15 @@
 #include "uclothinterface.h"
+#include "uclothdebug.h"
 
 #include <world.hpp>
 #include <pbdsimulation.hpp>
 #include <uclothcommon.hpp>
 #include <umath.hpp>
+
+void ucloth_registerDebugCallback(FuncCallBack cb)
+{
+    Debug::callbackInstance = cb;
+}
 
 WorldHandle ucloth_createWorld()
 {

@@ -6,6 +6,8 @@ add_library(ucloth STATIC
     pbdsimulation.cpp
     constraint.hpp
     constraint.cpp
+    uclothdebug.h
+    uclothdebug.cpp
 )
 
 target_link_libraries(ucloth
