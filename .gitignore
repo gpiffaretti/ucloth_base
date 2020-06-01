@@ -1,2 +1,24 @@
-build
+##############
+# GENERAL ####
+##############
+
 .vscode
+.vs
+
+##############
+# VS CODE ####
+##############
+
+/UClothLib/build
+
+##############
+# UNITY ######
+##############
+
+/UnityUCloth/**/[Ll]ibrary/
+/UnityUCloth/**/[Tt]emp/
+/UnityUCloth/**/[Oo]bj/
+/UnityUCloth/**/[Bb]uild/
+/UnityUCloth/**/[Bb]uilds/
+/UnityUCloth/**/[Ll]ogs/
+/UnityUCloth/**/[Uu]ser[Ss]ettings/
