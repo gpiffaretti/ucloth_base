@@ -9,8 +9,6 @@ namespace ucloth
     {
         void PBDSimulation::simulate(umath::Real const deltaTime, size_t const solverIterations, World& world)
         {
-            ::fprintf(stderr, "howdy log  \n"); // don't forget the newline
-
             applyExternalAccelerations(world.accelerations, deltaTime, world.velocities);
             dampVelocities(world.meshes, world.positions, world.inverseMasses, world.velocities);
             createPositionEstimates(world.positions, world.velocities, deltaTime);
