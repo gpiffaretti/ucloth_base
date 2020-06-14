@@ -68,6 +68,10 @@
     <Compile Include="Assets\UCloth\UClothImports.cs" />
     <Compile Include="Assets\UCloth\UClothSimulation.cs" />
     <Compile Include="Assets\UCloth\UClothWorld.cs" />
+    <None Include="Assets\Ciconia Studio\Shaders\Double Sided Shaders\Double Sided Transparent Diffuse Bump.shader" />
+    <None Include="Assets\Ciconia Studio\Shaders\Double Sided Shaders\Double Sided Emissive Diffuse.shader" />
+    <None Include="Assets\Ciconia Studio\Shaders\Double Sided Shaders\Double Sided Transparent Diffuse Bump Cutout.shader" />
+    <None Include="Assets\Ciconia Studio\Shaders\Double Sided Shaders\Double Sided Standard Diffuse Bump.shader" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:/Users/gnp89/Projects/Utad/SimulacionAnimacionAvanzada/Telas/UCloth/UnityUCloth/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>

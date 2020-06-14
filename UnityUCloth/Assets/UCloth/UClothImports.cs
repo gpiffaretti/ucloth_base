@@ -37,7 +37,7 @@ namespace UCloth
         public static extern unsafe IntPtr ucloth_addCloth(IntPtr world, Vector3* positions, int posSize, int* faces, int facesSize, float mass, float elasticity, float damping);
 
         [DllImport(UClothLibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void ucloth_retrieveCloth(IntPtr clothHandle, IntPtr worldHandle, ref IntPtr positions, int posSize, ref IntPtr faces, int facesSize);
+        public static extern void ucloth_retrieveClothInfo(IntPtr clothHandle, IntPtr worldHandle, ref IntPtr positions, ref int posSize, ref IntPtr faces, ref int facesSize);
 
         [DllImport(UClothLibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void ucloth_attachParticleToPosition(IntPtr world, IntPtr cloth, uint index, Vector3 position);

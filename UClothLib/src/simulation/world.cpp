@@ -1,4 +1,5 @@
 #include "world.hpp"
+#include "uclothdebug.h"
 
 namespace ucloth
 {

@@ -5,22 +5,23 @@ using UnityEngine;
 namespace UCloth
 {
 
+    [RequireComponent(typeof(MeshFilter))]
     public class UClothCloth : MonoBehaviour
     {
-        private Attachment[] _attachments;
+        private Attachment[] _attachments = {};
 
         private IntPtr _clothHandle;
 
         [SerializeField]
-        private float _mass;
+        private float _mass = 1.0f;
 
         [SerializeField]
-        private float _elasticity;
+        private float _elasticity = 0.9f;
 
         [SerializeField]
-        private float _damping;
+        private float _damping = 0.2f;
 
-        void Awake()
+        void Start()
         {
             Mesh mesh = GetComponent<MeshFilter>().mesh;
             IntPtr worldHandle = UClothWorld.Instance.GetHandle();
@@ -44,6 +45,26 @@ namespace UCloth
         // Update is called once per frame
         void FixedUpdate()
         {
+            IntPtr worldHandle = UClothWorld.Instance.GetHandle();
+
+        }
+
+        private unsafe void RetrieveCloth(IntPtr worldHandle) 
+        {
+            IntPtr positions = (IntPtr)0;
+            int positionsSize = 0;
+            IntPtr faces = (IntPtr)0;
+            int facesSize = 0;
+
+            //UClothImports.ucloth_retrieveClothInfo(_clothHandle, worldHandle, ref positions, ref positionsSize, ref faces, ref facesSize);
+
+            //float[] a = {1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f };
+            //Vector3[] positionVectors = new Vector3[positionsSize];
+
+            //GCHandle handleVs = GCHandle.Alloc(positionVectors, GCHandleType.Pinned);
+            //IntPtr positionsPtr = handleVs.AddrOfPinnedObject();
+
+            //Marshal.Copy(positions, 0, positionsPtr, sizeof(float) * positionsSize * 3);
 
         }
 
@@ -61,7 +82,7 @@ namespace UCloth
             }
         }
 
-        private unsafe void AttachIndexToPosition(IntPtr worldHandle, IntPtr clothHandle, uint index, Vector3 position)
+        private void AttachIndexToPosition(IntPtr worldHandle, IntPtr clothHandle, uint index, Vector3 position)
         {
             UClothImports.ucloth_attachParticleToPosition(worldHandle, clothHandle, index, position);
         }

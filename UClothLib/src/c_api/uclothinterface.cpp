@@ -13,18 +13,21 @@ void ucloth_registerDebugCallback(FuncCallBack cb)
 
 WorldHandle ucloth_createWorld()
 {
+    Debug::Log("CPP::uclothinterface::ucloth_createWorld");
     auto* world = new ucloth::simulation::World();
     return reinterpret_cast<WorldHandle>(world);
 }
 
 void ucloth_deleteWorld(WorldHandle handle)
 {
+    Debug::Log("CPP::uclothinterface::ucloth_deleteWorld");
     auto* world = reinterpret_cast<ucloth::simulation::World*>(handle);
     delete world;
 }
 
 void ucloth_addAcceleration(WorldHandle world, UClothVector3f acceleration)
 {
+    Debug::Log("CPP::uclothinterface::ucloth_addAcceleration");
     auto* worldPtr = reinterpret_cast<ucloth::simulation::World*>(world);
     // TODO: add acceleration implement method
     worldPtr->accelerations.push_back({acceleration.x_, acceleration.y_, acceleration.z_});
@@ -33,12 +36,14 @@ void ucloth_addAcceleration(WorldHandle world, UClothVector3f acceleration)
 
 PBDSystemHandle ucloth_createPBDSimulation(void)
 {
+    Debug::Log("CPP::uclothinterface::ucloth_createPBDSimulation");
     auto* system = new ucloth::simulation::PBDSimulation();
     return reinterpret_cast<PBDSystemHandle>(system);
 }
 
 void ucloth_deletePBDSimulation(PBDSystemHandle simulationHandle)
 {
+    Debug::Log("CPP::uclothinterface::ucloth_deletePBDSimulation");
     auto* systemPtr = reinterpret_cast<ucloth::simulation::PBDSimulation*>(simulationHandle);
     delete systemPtr;
 }
@@ -59,6 +64,7 @@ ClothHandle ucloth_addCloth(
     float elasticity,
     float damping)
 {
+    Debug::Log("CPP::uclothinterface::ucloth_addCloth");
     auto* world = reinterpret_cast<ucloth::simulation::World*>(worldHandle);
     auto* pos = reinterpret_cast<ucloth::umath::Vec3*>(positions); 
     std::vector<ucloth::umath::Vec3> posVector{pos, pos + posSize};
@@ -93,6 +99,7 @@ void ucloth_retrieveClothInfo(
     size_t& facesSize
     )
 {
+    Debug::Log("CPP::uclothinterface::ucloth_retrieveClothInfo");
     auto* worldPtr = reinterpret_cast<ucloth::simulation::World*>(worldHandle);
     auto* const clothPtr = reinterpret_cast<const ucloth::simulation::Mesh*>(clothHandle);
     positions = reinterpret_cast<UClothVector3f*>(&worldPtr->positions[clothPtr->begin]);
@@ -103,6 +110,7 @@ void ucloth_retrieveClothInfo(
 
 void ucloth_attachParticleToPosition(WorldHandle worldHandle, ClothHandle clothHandle, unsigned int index, UClothVector3f position)
 {
+    Debug::Log("CPP::uclothinterface::ucloth_attachParticleToPosition");
     auto* worldPtr = reinterpret_cast<ucloth::simulation::World*>(worldHandle);
     auto* const clothPtr = reinterpret_cast<const ucloth::simulation::Mesh*>(clothHandle);
 
