@@ -31,7 +31,7 @@ namespace ucloth
                 face[2] += indexShift;
             }
             copy.type = MeshType::Cloth;
-            auto emplaceMesh = meshes.emplace_back(std::move(copy));
+            Mesh const& emplaceMesh = meshes.emplace_back(std::move(copy));
 
             // TODO: add constraints
             std::vector<Edge> edges;

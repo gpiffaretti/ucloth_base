@@ -6,13 +6,21 @@ using UCloth;
 
 public class DebugCPP : MonoBehaviour
 {
+    void Awake() 
+    {
+        //UClothImports.ucloth_registerDebugCallback(OnDebugCallback);
+    }
 
     // Use this for initialization
     void OnEnable()
     {
-        UClothImports.ucloth_registerDebugCallback(OnDebugCallback);
+        
     }
 
+    void OnDestroy() 
+    {
+    
+    }
 
     [MonoPInvokeCallback(typeof(UClothImports.DebugCallback))]
     static void OnDebugCallback(IntPtr request, int strLength)

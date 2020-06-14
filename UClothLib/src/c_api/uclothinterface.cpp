@@ -6,6 +6,8 @@
 #include <uclothcommon.hpp>
 #include <umath.hpp>
 
+#include <sstream> //for std::stringstream 
+
 void ucloth_registerDebugCallback(FuncCallBack cb)
 {
     Debug::callbackInstance = cb;
@@ -32,7 +34,6 @@ void ucloth_addAcceleration(WorldHandle world, UClothVector3f acceleration)
     // TODO: add acceleration implement method
     worldPtr->accelerations.push_back({acceleration.x_, acceleration.y_, acceleration.z_});
 }
-
 
 PBDSystemHandle ucloth_createPBDSimulation(void)
 {
@@ -67,7 +68,7 @@ ClothHandle ucloth_addCloth(
     Debug::Log("CPP::uclothinterface::ucloth_addCloth");
     auto* world = reinterpret_cast<ucloth::simulation::World*>(worldHandle);
     auto* pos = reinterpret_cast<ucloth::umath::Vec3*>(positions); 
-    std::vector<ucloth::umath::Vec3> posVector{pos, pos + posSize};
+    std::vector<ucloth::umath::Vec3> posVector{pos, pos + posSize}; // create vector by specifying range in memory
 
     ucloth::simulation::Mesh mesh;
     mesh.faces.reserve(facesSize / 3);
@@ -103,9 +104,19 @@ void ucloth_retrieveClothInfo(
     auto* worldPtr = reinterpret_cast<ucloth::simulation::World*>(worldHandle);
     auto* const clothPtr = reinterpret_cast<const ucloth::simulation::Mesh*>(clothHandle);
     positions = reinterpret_cast<UClothVector3f*>(&worldPtr->positions[clothPtr->begin]);
+
+    const void * address = static_cast<const void*>(positions);
+    std::stringstream ss;
+    ss << address;  
+    std::string positionsPtrString = ss.str();
+    //Debug::Log(std::string("CPP::uclothinterface::ucloth_retrieveClothInfo::positionsPtr = ") + positionsPtrString);
+    
     posSize = clothPtr->end - clothPtr->begin;
+    //Debug::Log(std::string("CPP::uclothinterface::ucloth_retrieveClothInfo::posSize = ") + std::to_string(posSize));
+
     faces = const_cast<int*>(reinterpret_cast<const int*>(clothPtr->faces.data()));
     facesSize = clothPtr->faces.size() * 3;
+    //Debug::Log(std::string("CPP::uclothinterface::ucloth_retrieveClothInfo::facesSize = ") + std::to_string(facesSize));
 }
 
 void ucloth_attachParticleToPosition(WorldHandle worldHandle, ClothHandle clothHandle, unsigned int index, UClothVector3f position)

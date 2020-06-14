@@ -15,7 +15,7 @@ namespace ucloth
             createPositionEstimates(world.positions, world.velocities, deltaTime);
             solveAttachments(world.attachments);
 
-            ignoreAttachmentMasses(world.attachments, world.inverseMasses);
+             ignoreAttachmentMasses(world.attachments, world.inverseMasses);
             for(size_t iteration = 0; iteration < solverIterations; ++iteration)
             {
                 // Fill
@@ -43,9 +43,13 @@ namespace ucloth
             for(auto const& mesh : meshes)
             {
                 // Total mass
-                umath::Real const totalMass = std::accumulate(inverseMasses.begin() + mesh.begin, inverseMasses.begin() + mesh.end, 0.0f, [](umath::Real input, umath::Real const inverseMass) {
-                    return std::move(input) + (1.0f / inverseMass);
-                }); 
+                umath::Real const totalMass = 
+                    std::accumulate(inverseMasses.begin() + mesh.begin, 
+                                    inverseMasses.begin() + mesh.end, 
+                                    0.0f, 
+                                    [](umath::Real input, umath::Real const inverseMass) {
+                                        return std::move(input) + (1.0f / inverseMass);
+                                    }); 
 
                 // Calculate Center of Mass
                 umath::Position xcm(0.0f, 0.0f, 0.0f);
@@ -56,10 +60,10 @@ namespace ucloth
                 xcm /= totalMass;
 
                 // Calculate Velocity
-                umath::Position vcm(0.0f, 0.0f, 0.0f);
+                umath::Vec3 vcm(0.0f, 0.0f, 0.0f);
                 for(Particle p = mesh.begin; p < mesh.end; ++p)
                 {
-                    vcm += positions[p] / (inverseMasses[p]);
+                    vcm += velocities[p] / (inverseMasses[p]);
                 }
                 vcm /= totalMass;
 
@@ -70,11 +74,12 @@ namespace ucloth
                     L += umath::cross(ri, velocities[p] / inverseMasses[p]);
                 }
                 
+                // inertia matrix
                 umath::Mat3x3 I(0.0f);
                 for(Particle p = mesh.begin; p < mesh.end; ++p)
                 {
                     umath::Position const ri = positions[p] - xcm;
-                    umath::Mat3x3 const riPrime({{0, -ri.z, ri.y}, {ri.z, 0, -ri.y}, {-ri.y, ri.x, 0}});
+                    umath::Mat3x3 const riPrime({{0, -ri.z, ri.y}, {ri.z, 0, -ri.x}, {-ri.y, ri.x, 0}});
                     I += riPrime * umath::transpose(riPrime) / inverseMasses[p];
                 }
 

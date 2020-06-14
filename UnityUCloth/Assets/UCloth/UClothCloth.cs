@@ -8,7 +8,13 @@ namespace UCloth
     [RequireComponent(typeof(MeshFilter))]
     public class UClothCloth : MonoBehaviour
     {
+        private Mesh _mesh;
+
+        [SerializeField]
         private Attachment[] _attachments = {};
+
+        private float[] _positionValues = null;
+        private int[] _facesValues = null;
 
         private IntPtr _clothHandle;
 
@@ -23,9 +29,10 @@ namespace UCloth
 
         void Start()
         {
-            Mesh mesh = GetComponent<MeshFilter>().mesh;
+            _mesh = GetComponent<MeshFilter>().mesh;
             IntPtr worldHandle = UClothWorld.Instance.GetHandle();
-            _clothHandle = CreateCloth(worldHandle, mesh, _mass, _elasticity, _damping);
+            _clothHandle = CreateCloth(worldHandle, _mesh, _mass, _elasticity, _damping);
+            Debug.Log($"Cloth created => ClothHandle = {_clothHandle}");
 
             foreach (Attachment attachment in _attachments)
             {
@@ -47,6 +54,7 @@ namespace UCloth
         {
             IntPtr worldHandle = UClothWorld.Instance.GetHandle();
 
+            RetrieveCloth(worldHandle);
         }
 
         private unsafe void RetrieveCloth(IntPtr worldHandle) 
@@ -56,22 +64,30 @@ namespace UCloth
             IntPtr faces = (IntPtr)0;
             int facesSize = 0;
 
-            //UClothImports.ucloth_retrieveClothInfo(_clothHandle, worldHandle, ref positions, ref positionsSize, ref faces, ref facesSize);
+            //Debug.Log($"Attempt retrieve cloth. ClothHandle = {_clothHandle}");
+            UClothImports.ucloth_retrieveClothInfo(_clothHandle, worldHandle, ref positions, ref positionsSize, ref faces, ref facesSize);
 
-            //float[] a = {1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f };
-            //Vector3[] positionVectors = new Vector3[positionsSize];
+            Marshal.Copy(positions, _positionValues, 0, positionsSize * 3);
+            Vector3[] vertices = _mesh.vertices;
 
-            //GCHandle handleVs = GCHandle.Alloc(positionVectors, GCHandleType.Pinned);
-            //IntPtr positionsPtr = handleVs.AddrOfPinnedObject();
+            for (int i = 0; i < _mesh.vertices.Length; i++)
+            {
+                vertices[i] = new Vector3(_positionValues[i*3], _positionValues[i*3 + 1], _positionValues[i*3 + 2]);
+            }
 
-            //Marshal.Copy(positions, 0, positionsPtr, sizeof(float) * positionsSize * 3);
-
+            _mesh.vertices = vertices;
         }
 
         private unsafe IntPtr CreateCloth(IntPtr worldHandle, Mesh mesh, float mass, float elasticity, float damping)
         {
             Vector3[] vertices = mesh.vertices;
             int[] faces = mesh.triangles;
+
+            // allocate arrays one time only for performance. We don't wanna allocate each time for marshalling later.
+            if (_positionValues == null)
+                _positionValues = new float[vertices.Length * 3];
+            if (_facesValues == null)
+                _facesValues = new int[faces.Length];
 
             fixed (Vector3* v = vertices)
             {
@@ -88,7 +104,7 @@ namespace UCloth
         }
 
         [System.Serializable]
-        public class Attachment 
+        public class Attachment
         {
             public uint particle;
             public Vector3 position;

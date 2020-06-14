@@ -15,6 +15,7 @@ namespace UCloth
         // Start is called before the first frame update
         void Awake()
         {
+            Debug.Log("Attempt create PBD simulation");
             _simulationHandle = UClothImports.ucloth_createPBDSimulation();
             Debug.Log("Created PBD simulation");
         }
