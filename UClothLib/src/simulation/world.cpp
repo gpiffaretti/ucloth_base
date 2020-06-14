@@ -65,7 +65,7 @@ namespace ucloth
             for(auto const& edge : edges)
             {
                 umath::Real const distance = umath::length(pos[edge.first] - pos[edge.second]);
-                distanceConstraints.push_back(DistanceConstraint{edge.first, edge.second, distance, stiffness});
+                distanceConstraints.push_back(DistanceConstraint{edge.first, edge.second, distance, elasticity});
             }
 
             return emplaceMesh;

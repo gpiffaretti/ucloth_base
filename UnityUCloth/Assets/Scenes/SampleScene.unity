@@ -153,10 +153,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40bbd3b28698b26479b947863712cec1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attachments: []
+  _attachments:
+  - particle: 0
+    position: {x: 5, y: 0, z: 5}
+    enabled: 1
+  - particle: 10
+    position: {x: -5, y: 0, z: 5}
+    enabled: 1
   _mass: 1
-  _elasticity: 0.9
-  _damping: 0.2
+  _elasticity: 0.5
+  _damping: 0.8
 --- !u!64 &528291450
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -467,7 +473,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1931265613
 MonoBehaviour:
   m_ObjectHideFlags: 0

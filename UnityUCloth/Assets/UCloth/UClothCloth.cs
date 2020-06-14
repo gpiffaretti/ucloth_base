@@ -32,8 +32,7 @@ namespace UCloth
             _mesh = GetComponent<MeshFilter>().mesh;
             IntPtr worldHandle = UClothWorld.Instance.GetHandle();
             _clothHandle = CreateCloth(worldHandle, _mesh, _mass, _elasticity, _damping);
-            Debug.Log($"Cloth created => ClothHandle = {_clothHandle}");
-
+            
             foreach (Attachment attachment in _attachments)
             {
                 if (attachment.enabled)

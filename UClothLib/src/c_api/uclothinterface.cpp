@@ -100,7 +100,7 @@ void ucloth_retrieveClothInfo(
     size_t& facesSize
     )
 {
-    Debug::Log("CPP::uclothinterface::ucloth_retrieveClothInfo");
+    //Debug::Log("CPP::uclothinterface::ucloth_retrieveClothInfo");
     auto* worldPtr = reinterpret_cast<ucloth::simulation::World*>(worldHandle);
     auto* const clothPtr = reinterpret_cast<const ucloth::simulation::Mesh*>(clothHandle);
     positions = reinterpret_cast<UClothVector3f*>(&worldPtr->positions[clothPtr->begin]);
@@ -125,6 +125,8 @@ void ucloth_attachParticleToPosition(WorldHandle worldHandle, ClothHandle clothH
     auto* worldPtr = reinterpret_cast<ucloth::simulation::World*>(worldHandle);
     auto* const clothPtr = reinterpret_cast<const ucloth::simulation::Mesh*>(clothHandle);
 
-    ucloth::umath::Position pos = {pos};
+    ucloth::umath::Position pos = {position.x_, position.y_, position.z_};
+
+    worldPtr->attachParticle(*clothPtr, index, pos);
     
 }

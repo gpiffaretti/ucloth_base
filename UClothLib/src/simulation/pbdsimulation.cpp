@@ -15,7 +15,7 @@ namespace ucloth
             createPositionEstimates(world.positions, world.velocities, deltaTime);
             solveAttachments(world.attachments);
 
-             ignoreAttachmentMasses(world.attachments, world.inverseMasses);
+            ignoreAttachmentMasses(world.attachments, world.inverseMasses);
             for(size_t iteration = 0; iteration < solverIterations; ++iteration)
             {
                 // Fill

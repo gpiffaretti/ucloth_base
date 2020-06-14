@@ -18,6 +18,7 @@ namespace simulation
         umath::Real stiffness;
     };
     
+    
 } // simulation
 } // ucloth
 

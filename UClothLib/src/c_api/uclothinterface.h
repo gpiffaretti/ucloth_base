@@ -36,7 +36,12 @@ extern "C"
         size_t& faces_size
         );
 
-    UCLOTH_EXPORT void ucloth_attachParticleToPosition();
+    UCLOTH_EXPORT void ucloth_attachParticleToPosition(
+        WorldHandle worldHandle,
+        ClothHandle clothHandle,
+        unsigned int index,
+        UClothVector3f position
+    );
 }
 
 #endif // UCLOTH_INTERFACE_H

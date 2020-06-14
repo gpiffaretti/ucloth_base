@@ -8,7 +8,7 @@ public class DebugCPP : MonoBehaviour
 {
     void Awake() 
     {
-        //UClothImports.ucloth_registerDebugCallback(OnDebugCallback);
+        UClothImports.ucloth_registerDebugCallback(OnDebugCallback);
     }
 
     // Use this for initialization
